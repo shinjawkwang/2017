@@ -122,23 +122,17 @@ XTreeNode *CreateNode(XData item){
 void DestroyNode(XTreeNode *node){free(node);}
 
 void CreateLeftSubtree(XTreeNode *root, XTreeNode *left){
-	if(root->left_child != NULL){
-		exit(1); // error: there is a existing node.
-	}
+	if(root->left_child != NULL)	exit(1); // error: there is a existing node.
 	root->left_child = left;
 }
 
 void CreateMiddleSubtree(XTreeNode *root, XTreeNode *middle){
-	if(root->middle_child != NULL){
-		exit(1); // error: there is a existing node.
-	}
+	if(root->middle_child != NULL)	exit(1); // error: there is a existing node.
 	root->middle_child = middle;
 }
 
 void CreateRightSubtree(XTreeNode *root, XTreeNode *right){
-	if(root->right_child != NULL){
-		exit(1); // error: there is a existing node.
-	}
+	if(root->right_child != NULL)	exit(1); // error: there is a existing node.
 	root->right_child = right;
 }
 /* Modify to here */

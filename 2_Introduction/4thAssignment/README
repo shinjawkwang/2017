@@ -1,0 +1,11 @@
+Depth First Search Algorithm Assignment
+Source code building commands.
+
+
+------------------Command List---------------------
+To creat the linked-list : creat
+To see the list : show
+To see the path from a to b : path a b
+To see the path-weight from a to b : path-weight a b
+To Quit : quit
+----------------------------------------------------

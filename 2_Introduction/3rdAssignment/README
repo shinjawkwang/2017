@@ -1,0 +1,36 @@
+Sorting algorithm assignment
+Source code building commands.
+
+To compile all: make
+
+To compile seletion: make seletion
+
+To compile bubble: make bubble
+
+To compile insertion: make insertion
+
+To compile merge: make merge
+
+To compile quick: make quick
+
+clean : make clean
+
+execution : ex) ./Bubble.out 100
+				./Seletion.out 100	
+				./Insetion.out 100
+				./Merge.out 100
+				./Quick.out 100
+				./Random-Quick.out 100
+
+			To disable printing data, give -s option.
+
+			ex) ./Bubble.out 3000 -s
+				./Selection.out 3000 -s
+				./Insertion.out 3000 -s
+				./Merge.out 3000 -s
+				./Quick.out 3000 -s
+				./Random-Quick.out 3000 -s
+
+			To write average-time(of 10 times) of datasets, use Compare.out-> write statistics.txt.
+
+			ex) ./Compare.out

@@ -22,7 +22,7 @@ int main(){
 	for(i=0;i<6;i++){visit[i] = pushList[i] = 0;}
 	while(1){
 		scanf("%s", cmd); getchar();
-		if(!strcmp(cmd, "creat")){
+		if(!strcmp(cmd, "create")){
 			for(i=1;i<=5;i++){
 				cnt_n[i]=cnt_p[i]=cnt_w[i]=0;
 				for(j=1;j<=5;j++){
@@ -35,10 +35,10 @@ int main(){
 			}
 		}
 		if(!strcmp(cmd, "show")){
-			for(i=1;i<=5;i++){	
+			for(i=1;i<=5;i++){
 				printf("(%d, %d)", graph[i].val, cnt_n[i]);
 				if(cnt_n[i]-1){
-					for(j=0;j<2;j++)	
+					for(j=0;j<2;j++)
 						printf("->(%d, %d)", graph[i].next[j]->val, graph[i].weight[j]);
 				}
 				else
@@ -80,7 +80,7 @@ int main(){
 				Sort(stack, top);
 			}
 			printf("\n");
-			for(i=cnt;i>=0;i--){	
+			for(i=cnt;i>=0;i--){
 				if(i==cnt)	printf("%d", result[i]);
 				else		printf("->%d", result[i]);
 			}

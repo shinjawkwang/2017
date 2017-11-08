@@ -131,66 +131,66 @@ void PrintTreeNode(XTreeNode *node) {
 }
 
 /* Modify from here */
-XTreeNode *CreateNode(XData item){
-	XTreeNode * newNode = (XTreeNode*)malloc(sizeof(XTreeNode));
-	newNode->item = item;
-	newNode->left_child = NULL;
-	newNode->middle_child = NULL;
-	newNode->right_child = NULL;
+XTreeNode *CreateNode(XData item){																//Create new node
+	XTreeNode * newNode = (XTreeNode*)malloc(sizeof(XTreeNode));		//Allocate new node
+	newNode->item = item;																						//Push item to node
+	newNode->left_child = NULL;																			//
+	newNode->middle_child = NULL;																		//Node is single,
+	newNode->right_child = NULL;																		//so left, middle, right child should be NULL
 
 	return newNode;
 }
 
-void DestroyNode(XTreeNode *node){free(node);}
+void DestroyNode(XTreeNode *node){free(node);}										//Delete input node
 
 void CreateLeftSubtree(XTreeNode *root, XTreeNode *left){
-	if(root->left_child != NULL)	exit(1); // error: there is a existing node.
-	root->left_child = left;
+	if(root->left_child != NULL)	exit(1); 													//Error: there is a existing node.
+	root->left_child = left;																				//Allocate 'left' node to left_child of 'root' node
 }
-
 void CreateMiddleSubtree(XTreeNode *root, XTreeNode *middle){
-	if(root->middle_child != NULL)	exit(1); // error: there is a existing node.
-	root->middle_child = middle;
+	if(root->middle_child != NULL)	exit(1); 												//Error: there is a existing node.
+	root->middle_child = middle;																		//Allocate 'middle' node to middle_child of 'root' node
+}
+void CreateRightSubtree(XTreeNode *root, XTreeNode *right){
+	if(root->right_child != NULL)	exit(1); 													//Error: there is a existing node.
+	root->right_child = right;																			//Allocate 'right' node to right_child of 'root' node
 }
 
-void CreateRightSubtree(XTreeNode *root, XTreeNode *right){
-	if(root->right_child != NULL)	exit(1); // error: there is a existing node.
-	root->right_child = right;
-}
+
 void preorder(XTreeNode *root){
-	if(root != NULL){
-		printf("%d ", root->item);
-		preorder(root->left_child);
-		preorder(root->middle_child);
-		preorder(root->right_child);
+	if(root != NULL){																								//if root is NULL, end recursion
+		printf("%d ", root->item);																		//First, print item of root Node (C)
+		preorder(root->left_child);																		//Second, execute preorder function again with left_child of root (L)
+		preorder(root->middle_child);																	//Third, execute preorder function again with middle_child of root (M)
+		preorder(root->right_child);																	//Forth, execute preorder function again with right_child of root (R)
 	}
 }
 
 void inorder(XTreeNode *root){
-	if(root != NULL){
-		inorder(root->left_child);
-		printf("%d ", root->item);
-		inorder(root->middle_child);
-		inorder(root->right_child);
+	if(root != NULL){																								//if root is NULL, end recursion
+		inorder(root->left_child);																		//First, execute inorder function with left_child of root (L)
+		printf("%d ", root->item);																		//Second, print item of root Node (C)
+		inorder(root->middle_child);																	//Third, execute inorder function again with middle_child of root (M)
+		inorder(root->right_child);																		//Forth, execute inorder function again with right_child of root (R)
 	}
 }
 
 void postorder(XTreeNode *root){
-	if(root != NULL){
-		postorder(root->left_child);
-		postorder(root->middle_child);
-		postorder(root->right_child);
-		printf("%d ", root->item);
+	if(root != NULL){																								//if root is NULL, end recursion
+		postorder(root->left_child);																	//First, execute postorder function with left_child of root (L)
+		postorder(root->middle_child);																//Second, execute postorder function again with middle_child of root (M)
+		postorder(root->right_child);																	//Third, execute postorder function again with right_child of root (R)
+		printf("%d ", root->item);																		//Forth, print item of root Node (C)
 	}
 }
 
 int countNodes(XTreeNode *root){
 	if(root == NULL)	return 0;
 	else{
-		int left = countNodes(root->left_child);
-		int middle = countNodes(root->middle_child);
-		int right = countNodes(root->right_child);
-		return left + middle + right + 1;							//1 represents root itself.
+		int left = countNodes(root->left_child);											//Count children nodes of left_child
+		int middle = countNodes(root->middle_child);									//Count children nodes of middle_child
+		int right = countNodes(root->right_child);										//Count children nodes of right_child
+		return left + middle + right + 1;															//including root itself, return sum of counted children nodes + 1
 	}
 }
 

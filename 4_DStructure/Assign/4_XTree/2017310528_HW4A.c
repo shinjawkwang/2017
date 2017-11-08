@@ -110,30 +110,28 @@ void PrintTreeNode(XTreeNode *node) {
 }
 
 /* Modify from here */
-XTreeNode *CreateNode(XData item){
-	XTreeNode * newNode = (XTreeNode*)malloc(sizeof(XTreeNode));
-	newNode->item = item;
-	newNode->left_child = NULL;
-	newNode->middle_child = NULL;
-	newNode->right_child = NULL;
+XTreeNode *CreateNode(XData item){																//Create new node
+	XTreeNode * newNode = (XTreeNode*)malloc(sizeof(XTreeNode));		//Allocate new node
+	newNode->item = item;																						//Push item to node
+	newNode->left_child = NULL;																			//
+	newNode->middle_child = NULL;																		//Node is single,
+	newNode->right_child = NULL;																		//so left, middle, right child should be NULL
 
 	return newNode;
 }
 
-void DestroyNode(XTreeNode *node){free(node);}
+void DestroyNode(XTreeNode *node){free(node);}										//Delete input node
 
 void CreateLeftSubtree(XTreeNode *root, XTreeNode *left){
-	if(root->left_child != NULL)	exit(1); // error: there is a existing node.
-	root->left_child = left;
+	if(root->left_child != NULL)	exit(1); 													//Error: there is a existing node.
+	root->left_child = left;																				//Allocate 'left' node to left_child of 'root' node
 }
-
 void CreateMiddleSubtree(XTreeNode *root, XTreeNode *middle){
-	if(root->middle_child != NULL)	exit(1); // error: there is a existing node.
-	root->middle_child = middle;
+	if(root->middle_child != NULL)	exit(1); 												//Error: there is a existing node.
+	root->middle_child = middle;																		//Allocate 'middle' node to middle_child of 'root' node
 }
-
 void CreateRightSubtree(XTreeNode *root, XTreeNode *right){
-	if(root->right_child != NULL)	exit(1); // error: there is a existing node.
-	root->right_child = right;
+	if(root->right_child != NULL)	exit(1); 													//Error: there is a existing node.
+	root->right_child = right;																			//Allocate 'right' node to right_child of 'root' node
 }
 /* Modify to here */

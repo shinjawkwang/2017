@@ -11,6 +11,7 @@ typedef struct _xTreeNode {
 	struct _xTreeNode *right_child;
 } XTreeNode;
 
+
 XTreeNode *CreateNode(XData item);
 
 void DestroyNode(XTreeNode *node);

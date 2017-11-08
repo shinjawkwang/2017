@@ -131,5 +131,67 @@ void PrintTreeNode(XTreeNode *node) {
 }
 
 /* Modify from here */
+XTreeNode *CreateNode(XData item){
+	XTreeNode * newNode = (XTreeNode*)malloc(sizeof(XTreeNode));
+	newNode->item = item;
+	newNode->left_child = NULL;
+	newNode->middle_child = NULL;
+	newNode->right_child = NULL;
+
+	return newNode;
+}
+
+void DestroyNode(XTreeNode *node){free(node);}
+
+void CreateLeftSubtree(XTreeNode *root, XTreeNode *left){
+	if(root->left_child != NULL)	exit(1); // error: there is a existing node.
+	root->left_child = left;
+}
+
+void CreateMiddleSubtree(XTreeNode *root, XTreeNode *middle){
+	if(root->middle_child != NULL)	exit(1); // error: there is a existing node.
+	root->middle_child = middle;
+}
+
+void CreateRightSubtree(XTreeNode *root, XTreeNode *right){
+	if(root->right_child != NULL)	exit(1); // error: there is a existing node.
+	root->right_child = right;
+}
+void preorder(XTreeNode *root){
+	if(root != NULL){
+		printf("%d ", root->item);
+		preorder(root->left_child);
+		preorder(root->middle_child);
+		preorder(root->right_child);
+	}
+}
+
+void inorder(XTreeNode *root){
+	if(root != NULL){
+		inorder(root->left_child);
+		printf("%d ", root->item);
+		inorder(root->middle_child);
+		inorder(root->right_child);
+	}
+}
+
+void postorder(XTreeNode *root){
+	if(root != NULL){
+		postorder(root->left_child);
+		postorder(root->middle_child);
+		postorder(root->right_child);
+		printf("%d ", root->item);
+	}
+}
+
+int countNodes(XTreeNode *root){
+	if(root == NULL)	return 0;
+	else{
+		int left = countNodes(root->left_child);
+		int middle = countNodes(root->middle_child);
+		int right = countNodes(root->right_child);
+		return left + middle + right + 1;							//1 represents root itself.
+	}
+}
 
 /* Modify to here */

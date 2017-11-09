@@ -28,8 +28,8 @@ int main(int argc, char *args[]){
         if(cnt == 1)  output.push_back(input[i]);
         else          output.append(input, i-cnt+1, cnt);
       }
-      if(cnt == 4 && !isLetter(input[i+1])){
-        if(input[i-4] == ' ' || i-3 == 0){
+      if(cnt == 4){
+        if((input[i-4] == ' ' || i-3 == 0) && (!isLetter(input[i+1]) || i==input.length()-1)){
           for(j=3;j>=0;j--){
             if(j==3){
               if('A' <= input[i-j] && input[i-j] <= 'Z')  output.append(1u, 'L');
@@ -49,7 +49,8 @@ int main(int argc, char *args[]){
     }
     output += '\n';
     cout << output;
-    output.erase(0, output.length());
+    output.clear();
+    //output.erase(0, output.length());
   }
   return 0;
 }

@@ -75,7 +75,7 @@ int main() {
 	DestroyNode(node6);
 	DestroyNode(node7);
 
-	// Tester();
+	Tester();
 	/*
 		7
 		6

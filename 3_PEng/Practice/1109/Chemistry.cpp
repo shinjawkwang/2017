@@ -13,103 +13,46 @@ string element[] = { "h", "he", "li", "be", "b", "c", "n", "o", "f", "ne", "na",
 "pm", "sm", "eu", "gd", "tb", "dy", "ho", "er", "tm", "yb", "lu", "ac",
 "th", "pa", "u", "np", "pu", "am", "cm", "bk", "cf", "es", "fm", "md",
 "no", "lr" };
-string input;
 
-vector<int> stack;
-vector<int> pushlog;
-int pushPos=-1;
-
-bool search(int inptPos, int rewflag){
-  int cnt = 0, flag = 1;
-  for(int i=0;i<sizeof(element)/sizeof(string) && flag;i++){
-    int pos = element[i].find(input[inptPos]);
-    if(pos != string::npos && !pos){
-      cout << "<----push_back " << i << ": " << element[i] << " into stack---->\n";
-      stack.push_back(i);
-      cnt ++;
+bool search(string str){
+  if(!str.length()) return true;
+  int i, j=0, k, pos_List[3];
+  string st1, st2;
+  for(i=0;i<sizeof(element)/sizeof(string);i++){
+    if((element[i].length()==1 && str[0]==element[i][0]) || (element[i].length()==2 && str[0]==element[i][0] && str[1]==element[i][1])){
+      pos_List[j++] = i;
     }
   }
-  if(flag){
-    pushlog.push_back(cnt);
-    pushPos ++;
-  }
-  flag = 1;
-  if(stack.empty()){
-    cout << "ERROR! Stack Empty -- We cannot find element.\n";
+  cout << "j = "<< j << "\npos_List : ";
+  for(k=0;k<j;k++)  cout << element[pos_List[k]] << " ";
+  cout << endl;
+  if(j==0){
+    cout << "ERROR! j is 0.\n";
     return false;
   }
-  else{
-    while(!stack.empty()){
-      string ch = element[stack.back()];
-      if(element[stack.back()].length() == 1){
-        ch.erase(1);
-      }
-      stack.pop_back();
-      if(ch.length() == 2){
-        if(input[inptPos] == ch[0] && input[inptPos+1] == ch[1]){
-          if(inptPos+1 == input.length()-1){
-            cout << "<----True Case1---->\n";
-            return true;
-          }
-          return search(inptPos+2, 2);
-        }
-        else{
-          cout << "ERROR! Second character mismatch.\n";
-          pushlog[pushPos] --;
-          if(stack.empty()){
-            cout << "ERROR! Stack Empty -- characters are remained.\n";
-            return false;
-          }
-          if(!pushlog[pushPos]){
-            cout << "<----Rewind with flag: "<< rewflag << "---->\n";
-            flag = 0;
-            if(rewflag==2){
-              inptPos -= 2;
-              pushPos -= 2;
-            }
-            else{
-              inptPos --;
-              pushPos --;
-            }
-          }
-        }
-      }
-      else{
-        if(input[inptPos] == ch[0]){
-          if(inptPos == input.length()-1){
-            cout << "<----True Case2---->\n";
-            return true;
-          }
-          return search(inptPos+1, 1);
-        }
-        else{
-          cout << "ERROR! First character mismatch.\n";
-          pushlog[pushPos] --;
-          if(stack.empty()){
-            cout << "ERROR! Stack Empty -- characters are remained.\n";
-            return false;
-          }
-          if(!pushlog[pushPos]){
-            cout << "<----Rewind with flag: "<< rewflag << "---->\n";
-            flag = 0;
-            if(rewflag==2){
-              inptPos -= 2;
-              pushPos -= 2;
-            }
-            else{
-              inptPos --;
-              pushPos --;
-            }
-          }
-        }
-      }
+  if(j==1){
+    st1.clear();
+    if(element[pos_List[0]].length()== 1){
+      st1.assign(str, 1, str.length()-1);
     }
-    return false;
+    else{
+      st1.assign(str, 2, str.length()-2);
+    }
+    cout << "<----Assign #1---->\n" << st1 << endl;
+    return search(st1);
   }
+  if(j==2){
+    st1.clear(); st2.clear();
+    st1.assign(str, 1, str.length()-1);
+    st2.assign(str, 2, str.length()-2);
+    cout << "<----Assign #2---->\n" << st1 << endl << st2 << endl;
+    return search(st1) || search(st2);
+  }
+  if(j!=0 && j!=1 && j!=2) exit(1); // Error
 }
 
 int main(int argc, char *argv[]) {
-  string clear;
+  string input, clear;
   int n;
   cin >> n;
   getline(cin, clear);
@@ -119,13 +62,12 @@ int main(int argc, char *argv[]) {
       input[i] = tolower(input[i]);
     }
     cout << "Case #" << i << endl;
-    if(search(0, 0)){
+    if(search(input)){
       cout << "yes\n";
     }
     else{
       cout << "no\n";
     }
-    stack.clear();
   }
   return 0;
 }

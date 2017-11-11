@@ -9,7 +9,7 @@ bool isLetter(char inpt){
   return ('A' <= inpt && inpt <= 'Z') || ('a' <= inpt && inpt <= 'z');
 }
 
-int main(int argc, char *args[]){
+int main(int argc, char *argv[]){
   string input, word, clear;
   int n, i, cnt=0, pos=-2;
   cin >> n;

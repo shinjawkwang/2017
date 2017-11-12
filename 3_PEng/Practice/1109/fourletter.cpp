@@ -37,4 +37,4 @@ int main(int argc, char *argv[]){
     cout << input << endl;
   }
   return 0;
-}
+}//writing test

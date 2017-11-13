@@ -3,3 +3,9 @@
 
 # c, cpp out file
 *.out
+
+#Document Files
+*.docx
+*.key
+*.hwp
+*.pptx

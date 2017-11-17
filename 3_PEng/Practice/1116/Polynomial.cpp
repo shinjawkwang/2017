@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <math.h>
+#include <cmath>
 using namespace std;
 
 vector <int> arr;
@@ -13,14 +13,34 @@ private:
 public:
   Polynomial();
   int getCoIdx(int n);
-  int* getValIdx(int n);
+  int* getValIdx(int *n);
   void setCoIdx();
   void setValIdx();
+  void Print();
 };
 Polynomial::Polynomial(){}
-int* Polynomial::getValIdx(int n){
-  return &n;
+int* Polynomial::getValIdx(int *n){
+  return n;
 }
+void Polynomial::setValIdx(){
+  if(arr.size() > 0)
+    x = getValIdx(&arr[1]);
+}
+int Polynomial::getCoIdx(int n){
+  return n;
+}
+void Polynomial::setCoIdx(){
+  if(arr.size() > 0)
+    CoIdx = getCoIdx(arr[0]);
+}
+void Polynomial::Print(){
+  int sum = 0;
+  for(int i=0;arr.size()>0 &&i<arr.size()-1;i++){
+    sum += pow(CoIdx, x[i]);
+  }
+  cout << "Sum : " << sum << endl;
+}
+
 bool search(int n){
   for(int i=0;i<arr.size();i++){
     if(n==arr[i]) return true;
@@ -29,23 +49,24 @@ bool search(int n){
 }
 
 int main(int argc, char *argv[]) {
-  int inpt;
+  Polynomial poly;
+  int inpt, inpt2;
   string input;
   getline(cin, input);
   stringstream stream(input);
-  while(stream){
-    stream >> inpt;
-    if(isalpha(inpt)){
-      return 0;
-    }
-    if(!search(inpt))
+  while(stream >> inpt){
+    if(!search(inpt)){
       arr.push_back(inpt);
+    }
   }
-
-
-  for(int i=0;i<arr.size();i++){
-    cout << arr[i] << " ";
-  }
-
+  poly.setValIdx();
+  poly.setCoIdx();
+  poly.Print();
+  cout << "New X Val: ";
+  cin >> inpt2;
+  if(arr.size()>0)
+    arr[0] = inpt2;
+  poly.setCoIdx();
+  poly.Print();
   return 0;
 }

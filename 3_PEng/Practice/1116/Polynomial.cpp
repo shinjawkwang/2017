@@ -38,7 +38,7 @@ void Polynomial::Print(){
   for(int i=0;arr.size()>0 &&i<arr.size()-1;i++){
     sum += pow(CoIdx, x[i]);
   }
-  cout << "Sum : " << sum << endl;
+  cout << "Sum = " << sum << endl;
 }
 
 bool search(int n){

@@ -202,6 +202,42 @@ namespace DFS {
     TreeNode *search(TreeNode* root, int target, list<TreeNode*> *path){
         list<TreeNode*> l;
         /* Fill here. */
+        /*Iteration Version*/
+        TreeNode *push;
+        path->push_back(root);
+        int num = root->get_no_children();
+        if(num){
+          add_to_list(&l, root->get_children(), num);
+        }
+        while(true){
+          push = get_next(&l);
+          path->push_back(push);
+          if(push->get_value() == target) break;
+          num = push->get_no_children();
+          if(num){
+            add_to_list(&l, push->get_children(), num);
+          }
+        }
+        return NULL;
+        /*  Recursion Version
+        path->push_back(root);
+        if(root->get_value() == target){
+          return root;
+        }
+        if(root->get_no_children())
+          DFS::add_to_list(&l, root->get_children(), root->get_no_children());
+        while(!l.empty()){
+          if(!search(get_next(&l), target, path)){
+            continue;
+          }
+          else{
+            cout << "DFS Complete\n";
+            return root;
+          }
+        }
+        cout << "NULL!\n";
+        return NULL;
+        */
     }
 }
 
@@ -221,6 +257,22 @@ namespace BFS {
     TreeNode *search(TreeNode* root, int target, list<TreeNode*> *path){
         list<TreeNode*> l;
         /* Fill here. */
+        TreeNode *enqueue;
+        path->push_back(root);
+        int num = root->get_no_children();
+        if(num){
+          add_to_list(&l, root->get_children(), num);
+        }
+        while(true){
+          enqueue = get_next(&l);
+          path->push_back(enqueue);
+          if(enqueue->get_value() == target)  break;
+          num = enqueue->get_no_children();
+          if(num){
+            add_to_list(&l, enqueue->get_children(), num);
+          }
+        }
+        return NULL;
     }
 }
 
@@ -259,9 +311,12 @@ int main(){
 
     list<TreeNode*> dfs_path;
     DFS::search(root, target, &dfs_path);
+    //cout << "<----DFS Result---->\n";
     print_path(dfs_path);
 
+    //cout << "DFS Successfully Ended.\n";
     list<TreeNode*> bfs_path;
     BFS::search(root, target, &bfs_path);
+    //cout << "<----BFS Result---->\n";
     print_path(bfs_path);
 }

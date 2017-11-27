@@ -82,7 +82,7 @@ void GetInput() {
 	int n;
 	char *a;
 	Hex_num *data;
-	
+
 	scanf("%d", &n);
 	a = malloc(sizeof(char)*(n+1));
 	scanf("%s", a);
@@ -91,5 +91,48 @@ void GetInput() {
 }
 
 /* Modify from here */
+void InitHeap(Heap *pheap){pheap->num = 0;}										//Initialize heap by making pheap->num 0.
+
+bool IsEmpty(Heap *pheap){return pheap->num == 0;}						//If phaep->num == 0, the heap is empty, so return true. Else, return false.
+
+bool IsFull(Heap *pheap){return pheap->num == MAX_HEAP;}			//If phaep->num == MAX_HEAP, the heap is full, so return true. Else, return false.
+
+int GetParent(int idx){return idx/2;}													//Return a parent index for a given index.
+int GetLChild(int idx){return idx*2;}													//Return a Left Child index for a given index.
+int GetRChild(int idx){return idx*2+1;}												//Return a parent index for a given index.
+
+bool CompareHex(Hex_num a, Hex_num b){												//If a is bigger than b, return true.
+	if(a.large > b.large)							return true;
+	else{
+		if(a.large < b.large)						return false;
+		else{
+			if(a.middle > b.middle)				return true;
+			else{
+				if(a.middle < b.middle)			return false;
+				else												return a.small > b.small;
+			}
+		}
+	}
+}
+
+void Insert(Heap *pheap, Hex_num data){
+	HNode newNode;
+	if(IsFull(pheap))	exit(1);																						//Exit program when the heap is full.
+	int idx = pheap->num + 1;
+	while(idx > 1){																												//Quit iteration when idx become the top of heap.
+		int parent = GetParent(idx);																				//Get parent of index node.
+		if(CompareHex(pheap->items[parent].data, pheap->items[idx].data)){	//If item in parent node if larger than item in index node.
+			pheap->items[idx] = pheap->items[parent];													//
+			idx = parent;
+		}
+		else break;
+	}
+	newNode.data = data;
+	pheap->items[idx] = newNode;
+	pheap->num++;
+}
+
+Hex_num Delete(Heap *pheap){}
+
 
 /* Modify to here */

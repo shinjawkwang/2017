@@ -203,19 +203,15 @@ namespace DFS {
         list<TreeNode*> l;
         /* Fill here. */
         /*Iteration Version*/
-        TreeNode *push;
-        path->push_back(root);
-        int num = root->get_no_children();
-        if(num){
-          add_to_list(&l, root->get_children(), num);
-        }
-        while(true){
-          push = get_next(&l);
-          path->push_back(push);
-          if(push->get_value() == target) break;
-          num = push->get_no_children();
+        int num;
+				l.push_back(root);
+        while(l.size()){
+          root = get_next(&l);
+          path->push_back(root);
+          if(root->get_value() == target) break;
+          num = root->get_no_children();
           if(num){
-            add_to_list(&l, push->get_children(), num);
+            add_to_list(&l, root->get_children(), num);
           }
         }
         return NULL;
@@ -257,19 +253,15 @@ namespace BFS {
     TreeNode *search(TreeNode* root, int target, list<TreeNode*> *path){
         list<TreeNode*> l;
         /* Fill here. */
-        TreeNode *enqueue;
-        path->push_back(root);
-        int num = root->get_no_children();
-        if(num){
-          add_to_list(&l, root->get_children(), num);
-        }
-        while(true){
-          enqueue = get_next(&l);
-          path->push_back(enqueue);
-          if(enqueue->get_value() == target)  break;
-          num = enqueue->get_no_children();
+        int num;
+				l.push_back(root);
+        while(l.size()){
+          root = get_next(&l);
+          path->push_back(root);
+          if(root->get_value() == target)  break;
+          num = root->get_no_children();
           if(num){
-            add_to_list(&l, enqueue->get_children(), num);
+            add_to_list(&l, root->get_children(), num);
           }
         }
         return NULL;

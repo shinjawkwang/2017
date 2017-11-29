@@ -20,13 +20,18 @@ void DestroyGraph(Graph *pgraph);
 
 void AddEdge(Graph *pgraph, int src, int dest);
 
-void Solution(Graph *pgraph);
+void PrintGraph(Graph *pgraph);
+
+void DFS(Graph *pgraph);
+
+void BFS(Graph *pgraph);
 
 void GetInput();
 
 int main() {
+
 	Graph g;
-	CreateGraph(&g, 8, "ABCFCDBD");
+	CreateGraph(&g, 5, "ABCFC");
 	AddEdge(&g, 0, 1);
 	AddEdge(&g, 0, 2);
 	AddEdge(&g, 0, 4);
@@ -34,17 +39,18 @@ int main() {
 	AddEdge(&g, 2, 3);
 	AddEdge(&g, 2, 4);
 	AddEdge(&g, 3, 4);
-	AddEdge(&g, 5, 6);
-	AddEdge(&g, 6, 7);
 
-	Solution(&g);
+	PrintGraph(&g);
+
+	DFS(&g);
+	BFS(&g);
 
 	DestroyGraph(&g);
 
 	// GetInput();
 	/*
-	8 9
-	ABCFCDBD
+	5 7
+	ABCFC
 	0 1
 	0 2
 	0 4
@@ -52,8 +58,6 @@ int main() {
 	2 3
 	2 4
 	3 4
-	5 6
-	6 7
 	*/
 
 	return 0;
@@ -77,8 +81,10 @@ void GetInput(){
 		scanf("%d %d", &src, &des);
 		AddEdge(&g, src, des);
 	}
+	PrintGraph(&g);
 
-	Solution(&g);
+	//DFS(&g);
+	//BFS(&g);
 
 	DestroyGraph(&g);
 
@@ -132,6 +138,87 @@ void AddEdge(Graph *pgraph, int src, int dest){
 	cur->next = newNode2;
 }
 
-void Solution(Graph *pgraph){}
+void PrintGraph(Graph *pgraph){
+	GNode *cur;
+	for(int i=0;i<pgraph->num;i++){
+		for(cur = pgraph->heads[i];cur != NULL;cur = cur->next){//(1, B) -> (0, A) -> (2, C)
+			if(cur->next != NULL){
+				printf("(%d, %c) -> ", cur->id, cur->data);
+			}
+			else{
+				printf("(%d, %c)", cur->id, cur->data);
+			}
+		}
+		printf("\n");
+	}
+}
+
+void DFS(Graph *pgraph){
+	Stack stack;
+	GNode *cur;
+	bool *visit;
+	int visitAlpha[6] = {0, };
+	visit = (bool *)malloc(sizeof(bool) * pgraph->num);
+	for(int i=0;i<pgraph->num;i++){
+		visit[i] = false;
+	}
+	InitStack(&stack);
+	Push(&stack, 0);
+
+	while(!IsSEmpty(&stack)){
+		int vtx = SPeek(&stack);
+		Pop(&stack);
+		if(visit[vtx])	continue;
+		else{
+			visit[vtx] = true;
+			printf("%d ", vtx);
+			visitAlpha[pgraph->heads[vtx]->data - 'A'] ++;
+		}
+
+		cur = pgraph->heads[vtx]->next;
+		while(cur != NULL){
+			Push(&stack, cur->id);
+			cur = cur->next;
+		}
+	}
+	printf("\n");
+	for(int i=0;i<6;i++){
+		printf("%c: %d\n", i+'A', visitAlpha[i]);
+	}
+}
+
+void BFS(Graph *pgraph){
+	Queue queue;
+	GNode *cur;
+	bool *visit;
+	int visitAlpha[6] = {0, };
+	visit = (bool *)malloc(sizeof(bool) * pgraph->num);
+	for(int i=0;i<pgraph->num;i++){
+		visit[i] = false;
+	}
+	InitQueue(&queue);
+	EnQueue(&queue, 0);
+
+	while(!IsQEmpty(&queue)){
+		int vtx = QPeek(&queue);
+		DeQueue(&queue);
+		if(visit[vtx])	continue;
+		else{
+			visit[vtx] = true;
+			printf("%d ", vtx);
+			visitAlpha[pgraph->heads[vtx]->data - 'A'] ++;
+		}
+
+		cur = pgraph->heads[vtx]->next;
+		while(cur != NULL){
+			EnQueue(&queue, cur->id);
+			cur = cur->next;
+		}
+	}
+	printf("\n");
+	for(int i=0;i<6;i++){
+		printf("%c: %d\n", i+'A', visitAlpha[i]);
+	}
+}
 
 /* Modify to here */

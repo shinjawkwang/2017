@@ -92,9 +92,9 @@ void GetInput(){
 
 /* Modify from here */
 void CreateGraph(Graph *pgraph, int num, char data[]){
-	pgraph->num = num;
+	pgraph->num = num;																				//Allocate num of graph.
 	pgraph->heads = (GNode **)malloc(sizeof(GNode*) * num);
-	for(int i=0;i<num;i++){
+	for(int i=0;i<num;i++){																		//Allocate every data into graph.
 		pgraph->heads[i] = (GNode *)malloc(sizeof(GNode));
 		pgraph->heads[i]->id = i;
 		pgraph->heads[i]->data = data[i];
@@ -103,7 +103,7 @@ void CreateGraph(Graph *pgraph, int num, char data[]){
 }
 
 void DestroyGraph(Graph *pgraph){
-	for(int i = 0; i < pgraph->num; i++){
+	for(int i = 0; i < pgraph->num; i++){											//Free every allocated pointer in graph.
 		GNode* cur = pgraph->heads[i];
 		while(cur != NULL) {
 			GNode* temp = cur;
@@ -116,7 +116,7 @@ void DestroyGraph(Graph *pgraph){
 
 void AddEdge(Graph *pgraph, int src, int dest){
 	GNode *newNode1, *newNode2, *cur;
-
+	//For src Node.
 	newNode1 = (GNode *)malloc(sizeof(GNode));
 	newNode1->id = dest;
 	newNode1->data = pgraph->heads[dest]->data;
@@ -126,7 +126,7 @@ void AddEdge(Graph *pgraph, int src, int dest){
 		cur = cur->next;
 	}
 	cur->next = newNode1;
-
+	//For dest Node.
 	newNode2 = (GNode *)malloc(sizeof(GNode));
 	newNode2->id = src;
 	newNode2->data = pgraph->heads[src]->data;
@@ -141,11 +141,11 @@ void AddEdge(Graph *pgraph, int src, int dest){
 void PrintGraph(Graph *pgraph){
 	GNode *cur;
 	for(int i=0;i<pgraph->num;i++){
-		for(cur = pgraph->heads[i];cur != NULL;cur = cur->next){//(1, B) -> (0, A) -> (2, C)
-			if(cur->next != NULL){
+		for(cur = pgraph->heads[i];cur != NULL;cur = cur->next){//Example : (1, B) -> (0, A) -> (2, C)
+			if(cur->next != NULL){																//If cur is not last node.
 				printf("(%d, %c) -> ", cur->id, cur->data);
 			}
-			else{
+			else{																									//If cur is last node.
 				printf("(%d, %c)", cur->id, cur->data);
 			}
 		}
@@ -153,30 +153,30 @@ void PrintGraph(Graph *pgraph){
 	}
 }
 
-void DFS(Graph *pgraph){
-	Stack stack;
+void DFS(Graph *pgraph){																		//DFS Algorithm
+	Stack stack;																							//We will use stack.
 	GNode *cur;
-	bool *visit;
-	int visitAlpha[6] = {0, };
+	bool *visit;																							//To define whether I visited node.
+	int visitAlpha[6] = {0, };																//For tracking visited data.
 	visit = (bool *)malloc(sizeof(bool) * pgraph->num);
 	for(int i=0;i<pgraph->num;i++){
 		visit[i] = false;
 	}
 	InitStack(&stack);
-	Push(&stack, 0);
+	Push(&stack, 0);																					//Push First Node.
 
-	while(!IsSEmpty(&stack)){
-		int vtx = SPeek(&stack);
+	while(!IsSEmpty(&stack)){																	//Do not end searching until the stack is empty.
+		int vtx = SPeek(&stack);																//Peek & Pop node.
 		Pop(&stack);
-		if(visit[vtx])	continue;
-		else{
-			visit[vtx] = true;
+		if(visit[vtx])	continue;																//If we already visited node, skip this step.
+		else{																										//If we didn't visit node
+			visit[vtx] = true;																		//We visited here.
 			printf("%d ", vtx);
-			visitAlpha[pgraph->heads[vtx]->data - 'A'] ++;
+			visitAlpha[pgraph->heads[vtx]->data - 'A'] ++;				//Based on ASCII Code
 		}
 
-		cur = pgraph->heads[vtx]->next;
-		while(cur != NULL){
+		cur = pgraph->heads[vtx]->next;													//Move current node to next node.
+		while(cur != NULL){																			//If current node exists
 			Push(&stack, cur->id);
 			cur = cur->next;
 		}
@@ -187,30 +187,30 @@ void DFS(Graph *pgraph){
 	}
 }
 
-void BFS(Graph *pgraph){
-	Queue queue;
+void BFS(Graph *pgraph){																		//BFS Algorithm
+	Queue queue;																							//We will use Queue.
 	GNode *cur;
-	bool *visit;
-	int visitAlpha[6] = {0, };
+	bool *visit;																							//To define whether I visited node.
+	int visitAlpha[6] = {0, };																//For tracking visited data.
 	visit = (bool *)malloc(sizeof(bool) * pgraph->num);
 	for(int i=0;i<pgraph->num;i++){
 		visit[i] = false;
 	}
 	InitQueue(&queue);
-	EnQueue(&queue, 0);
+	EnQueue(&queue, 0);																				//Enqueue First Node.
 
-	while(!IsQEmpty(&queue)){
-		int vtx = QPeek(&queue);
+	while(!IsQEmpty(&queue)){																	//Do not end searching until the queue is empty.
+		int vtx = QPeek(&queue);																//Peek & Dequeue node.
 		DeQueue(&queue);
-		if(visit[vtx])	continue;
-		else{
-			visit[vtx] = true;
+		if(visit[vtx])	continue;																//If we already visited node, skip this step.
+		else{																										//If we didn't visit node
+			visit[vtx] = true;																		//We visited here.
 			printf("%d ", vtx);
-			visitAlpha[pgraph->heads[vtx]->data - 'A'] ++;
+			visitAlpha[pgraph->heads[vtx]->data - 'A'] ++;				//Based on ASCII Code.
 		}
 
-		cur = pgraph->heads[vtx]->next;
-		while(cur != NULL){
+		cur = pgraph->heads[vtx]->next;													//Move current node to next node.
+		while(cur != NULL){																			//If current node exists
 			EnQueue(&queue, cur->id);
 			cur = cur->next;
 		}

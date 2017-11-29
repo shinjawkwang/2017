@@ -58,15 +58,12 @@ void HeapSort(Hex_num a[], int n) {
 	// Insert all elements to the heap.
 	for (int i = 0; i < n; i++)
 		Insert(&heap, a[i]);
-	for (int i = 1; i <= n; i++)
-		printf("%c%c%c ", heap.items[i].data.large, heap.items[i].data.middle, heap.items[i].data.small);
-	printf("\n");
 	// Remove all elements from the heap.
 	for (int i = n - 1; i >= 0; i--)
 		a[i] = Delete(&heap);
 
 	for (int i = 0; i < n; i++)
-		printf("%c%c%c ", a[i].large, a[i].middle, a[i].small);
+		printf("%c%c%c", a[i].large, a[i].middle, a[i].small);
 }
 
 Hex_num *CreateHexNum(char str[]) {
@@ -151,15 +148,15 @@ void Insert(Heap *pheap, Hex_num data){
 	pheap->num++;
 }
 
-Hex_num Delete(Heap *pheap){																						//
+Hex_num Delete(Heap *pheap){
 	Hex_num min = pheap->items[1].data;
-	if(IsEmpty(pheap))	exit(1);																					//
+	if(IsEmpty(pheap))	exit(1);																					//Exit program when the heap is empty.
 	Hex_num last = pheap->items[pheap->num].data;
 	int parent = 1, child;
-	while((child = GetHighPriorityChild(pheap, parent))){
-		if(CompareHex(last, pheap->items[child].data)){
-			pheap->items[parent].data = pheap->items[child].data;
-			parent = child;
+	while((child = GetHighPriorityChild(pheap, parent))){									//Quit iteration when child becomes NULL
+		if(CompareHex(last, pheap->items[child].data)){											//if child data is smaller than target data
+			pheap->items[parent].data = pheap->items[child].data;							//change parent data to child data
+			parent = child;																										//change parent to child.
 		}
 		else break;
 	}

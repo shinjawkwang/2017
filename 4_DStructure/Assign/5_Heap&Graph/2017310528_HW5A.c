@@ -149,8 +149,8 @@ void Insert(Heap *pheap, Hex_num data){
 }
 
 Hex_num Delete(Heap *pheap){
-	Hex_num min = pheap->items[1].data;
 	if(IsEmpty(pheap))	exit(1);																					//Exit program when the heap is empty.
+	Hex_num min = pheap->items[1].data;
 	Hex_num last = pheap->items[pheap->num].data;
 	int parent = 1, child;
 	while((child = GetHighPriorityChild(pheap, parent))){									//Quit iteration when child becomes NULL

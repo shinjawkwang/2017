@@ -83,8 +83,8 @@ void GetInput(){
 	}
 	PrintGraph(&g);
 
-	//DFS(&g);
-	//BFS(&g);
+	DFS(&g);
+	BFS(&g);
 
 	DestroyGraph(&g);
 

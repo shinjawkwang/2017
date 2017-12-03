@@ -138,6 +138,7 @@ void Solution(Graph *pgraph){													//Using DFS Algorithm
 	bool *visit;																				//To define whether I visited node.
 	int visitAlpha[6] = {0, };													//For tracking visited data.
 	bool result[6] = {false, };													//For finding condition required node.
+	bool resultAlpha[6] = {false, };
 	visit = (bool *)malloc(sizeof(bool) * pgraph->num);
 	for(int i=0;i<pgraph->num;i++){
 		visit[i] = false;
@@ -162,6 +163,7 @@ void Solution(Graph *pgraph){													//Using DFS Algorithm
 	for(int i=0;i<6;i++){
 		if(visitAlpha[i] > 1){														//If there are path to another node having same data
 			result[i] = true;
+			resultAlpha[i] = true;
 		}
 	}
 	for(int i=0;i<6;i++){
@@ -198,7 +200,7 @@ void Solution(Graph *pgraph){													//Using DFS Algorithm
 				}
 			}
 			for(int i=0;i<6;i++){
-				if(result[i]){
+				if(result[i] && !resultAlpha[i]){
 					printf("%c\n", i+'A');
 				}
 			}

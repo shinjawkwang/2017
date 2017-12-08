@@ -47,7 +47,7 @@ public:
   Worker();
   Worker(string str);
   Worker(const Person& person);
-  virtual ~Worker();
+  ~Worker();
 };
 Worker::Worker():Person(){
   cout << "Worker() called\n";

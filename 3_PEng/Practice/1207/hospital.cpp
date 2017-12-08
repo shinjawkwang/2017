@@ -122,7 +122,7 @@ ostream& operator <<(ostream &outputStream, const Patient& patient){
 }
 
 int main()
-{   
+{
     Person person1("Isaac Newton");
     Person person2(person1);
 

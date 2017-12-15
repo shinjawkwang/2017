@@ -10,3 +10,11 @@
 *.hwp
 *.pptx
 *.pdf
+
+#test, temp Files
+test.c
+test.cpp
+test.py
+temp.c
+temp.cpp
+temp.py

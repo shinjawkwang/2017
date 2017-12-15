@@ -41,11 +41,11 @@ int main() {
 		scanf("%d", &list[i]);
 	}
 
-	printf("Selection : %d\n", SelectionSort(list, n));
+	//printf("Selection : %d\n", SelectionSort(list, n));
 	//printf("Bubble : %d\n", BubbleSort(list, n));
 	//printf("Insertion : %d\n", InsertionSort(list, n));
 	//printf("Shell : %d\n", ShellSort(list, n));
-	//printf("Quick : %d\n", QuickSort(list, 0, n-1));
+	printf("Quick : %d\n", QuickSort(list, 0, n-1));
 	//printf("Merge : %d\n", MergeSort(list, n));
 
 	for (int i = 0; i < n; i++) {

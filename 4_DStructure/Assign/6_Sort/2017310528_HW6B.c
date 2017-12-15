@@ -76,7 +76,14 @@ int main() {
 
 int Solution(int *list, int n, int *cnt) {
 /* Modify from here */
-/* Based on Staticstical Reason, I decided to make result only of MergeSort. */
-return 5;
+/* Based on Staticstical Reason, I decided to . . */
+
+/* If size is 4 or 5, return Insertion Sort */
+if(n == 4 || n == 5){
+	return 2;
+}
+/* Else, return Merge Sort */
+else
+	return 5;
 /* Modify to here */
 }

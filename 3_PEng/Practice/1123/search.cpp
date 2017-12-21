@@ -215,25 +215,6 @@ namespace DFS {
           }
         }
         return NULL;
-        /*  Recursion Version
-        path->push_back(root);
-        if(root->get_value() == target){
-          return root;
-        }
-        if(root->get_no_children())
-          DFS::add_to_list(&l, root->get_children(), root->get_no_children());
-        while(!l.empty()){
-          if(!search(get_next(&l), target, path)){
-            continue;
-          }
-          else{
-            cout << "DFS Complete\n";
-            return root;
-          }
-        }
-        cout << "NULL!\n";
-        return NULL;
-        */
     }
 }
 
